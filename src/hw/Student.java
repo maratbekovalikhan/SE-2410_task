@@ -1,15 +1,16 @@
-package SchoolSystem;
+package hw;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-public class Student extends Person {
-    private static int idCounter = 1; // For generating unique IDs
-    private int studentID;
-    private ArrayList<Integer> grades;
+class Student extends Person {
+    int studentID;
+    List<Integer> grades;
 
     public Student(String name, String surname, int age, boolean gender) {
         super(name, surname, age, gender);
-        this.studentID = idCounter++;
+        this.studentID = new Random().nextInt(9000) + 1000;
         this.grades = new ArrayList<>();
     }
 
@@ -21,15 +22,16 @@ public class Student extends Person {
 
     public double calculateGPA() {
         if (grades.isEmpty()) return 0;
-        int sum = 0;
+        double sum = 0;
         for (int grade : grades) {
             sum += grade;
         }
-        return sum / (double) grades.size();
+        return sum / grades.size();
     }
 
     @Override
     public String toString() {
-        return super.toString() + " I am a student with ID " + studentID + ".";
+        String genderStr = gender ? "Male" : "Female";
+        return String.format("Hi, I am %s %s, a %d-year-old %s. I am a student with ID %d.", name, surname, age, genderStr, studentID);
     }
 }
